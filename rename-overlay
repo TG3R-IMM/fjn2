@@ -1,1 +1,2005 @@
+<!DOCTYPE html>
+	<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rename Participants Overlay</title>
+	<style>
+	html, body {
+	overflow: hidden;
+	}
+	
+	body {
+	/* This is just a helper in case the element has a transparent background or white colors. */
+	zoom: 2;
+	}
+	
+	@keyframes resizeanim {
+	
+	0%, to {
+	opacity: 0;
+	}
+	}
+	
+	:root {
+	--bs-border-width: 1px;
+	--bs-body-color: #212529;
+	--bs-border-radius: .375rem;
+	--bs-border-radius-sm: .25rem;
+	}
+	
+	button {
+	background-color: transparent;
+	border-radius: 0;
+	border-style: initial;
+	border-width: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	margin: 0;
+	padding: 0;
+	text-transform: none;
+	}
+	
+	*, ::after, ::before {
+	box-sizing: border-box;
+	}
+	
+	.inherited-styles-for-exported-element {
+	font-family: system-ui, "SF Pro", "Segoe UI", "Almaden Sans", Roboto, Ubuntu, Helvetica, Arial;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	}
+	
+	img, svg {
+	vertical-align: middle;
+	}
+	
+	button:focus:not(:focus-visible) {
+	outline: 0;
+	}
+	
+	input {
+	font-family: inherit;
+	line-height: inherit;
+	}
+	
+	[type=button], button {
+	appearance: button;
+	}
+	
+	[type=button]:not(:disabled), button:not(:disabled) {
+	cursor: pointer;
+	}
+	
+	.btn {
+	background-color: var(--bs-btn-bg);
+	border-image: none 100% 1 0 stretch;
+	border-style: solid;
+	border-width: 1px;
+	color: var(--bs-btn-color);
+	cursor: pointer;
+	display: inline-block;
+	font-family: var(--bs-btn-font-family);
+	font-weight: var(--bs-btn-font-weight);
+	line-height: var(--bs-btn-line-height);
+	padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+	text-align: center;
+	text-decoration: none;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	user-select: none;
+	vertical-align: middle;
+	--bs-btn-focus-box-shadow: 0 0 0 .25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+	--bs-btn-disabled-opacity: .65;
+	--bs-btn-bg: transparent;
+	--bs-btn-color: var(--bs-body-color);
+	--bs-btn-line-height: 1.5;
+	--bs-btn-font-weight: 400;
+	--bs-btn-font-family: ;
+	--bs-btn-padding-y: .375rem;
+	--bs-btn-padding-x: .75rem;
+	transition-behavior: normal, normal, normal, normal;
+	}
+	
+	@media (prefers-reduced-motion:reduce) {
+	.btn {
+	transition: none 0s;
+	transition-behavior: normal;
+	}
+	}
+	
+	.btn:hover {
+	color: var(--bs-btn-hover-color);
+	}
+	
+	.btn:focus-visible {
+	background-color: var(--bs-btn-hover-bg);
+	border-color: #0e71eb;
+	border-color: rgba(0, 0, 0, .4);
+	box-shadow: var(--bs-btn-focus-box-shadow);
+	color: var(--bs-btn-hover-color);
+	outline: 0;
+	}
+	
+	.btn:first-child:active {
+	background-color: var(--bs-btn-active-bg);
+	border-color: #0e71eb;
+	border-color: rgba(0, 0, 0, .4);
+	color: var(--bs-btn-active-color);
+	}
+	
+	.btn:first-child:active, :not(.btn-check)+.btn:active {
+	background-color: var(--bs-btn-active-bg);
+	border-color: rgba(0, 0, 0, .4);
+	color: var(--bs-btn-active-color);
+	}
+	
+	.btn:first-child:active:focus-visible {
+	box-shadow: var(--bs-btn-focus-box-shadow);
+	}
+	
+	.btn:first-child:active:focus-visible, :not(.btn-check)+.btn:active:focus-visible {
+	box-shadow: var(--bs-btn-focus-box-shadow);
+	}
+	
+	.btn:disabled {
+	background-color: var(--bs-btn-disabled-bg);
+	border-color: #0e71eb;
+	border-color: rgba(0, 0, 0, .4);
+	color: var(--bs-btn-disabled-color);
+	opacity: var(--bs-btn-disabled-opacity);
+	pointer-events: none;
+	}
+	
+	.btn-primary {
+	--bs-btn-disabled-bg: #0d6efd;
+	--bs-btn-disabled-color: #fff;
+	--bs-btn-active-bg: #0a58ca;
+	--bs-btn-active-color: #fff;
+	--bs-btn-focus-shadow-rgb: 49, 132, 253;
+	--bs-btn-hover-bg: #0b5ed7;
+	--bs-btn-hover-color: #fff;
+	--bs-btn-bg: #0d6efd;
+	--bs-btn-color: #fff;
+	}
+	
+	.btn-sm {
+	--bs-btn-padding-x: .5rem;
+	--bs-btn-padding-y: .25rem;
+	}
+	
+	.dropup {
+	position: relative;
+	}
+	
+	.dropdown-toggle {
+	text-wrap: nowrap;
+	white-space-collapse: collapse;
+	}
+	
+	.dropdown-toggle::after {
+	border-bottom-color: initial;
+	border-bottom-style: initial;
+	border-bottom-width: 0;
+	border-left: .3em solid transparent;
+	border-right: .3em solid transparent;
+	border-top-color: initial;
+	border-top-style: solid;
+	border-top-width: .3em;
+	content: "";
+	display: none;
+	margin-left: .255em;
+	vertical-align: .255em;
+	}
+	
+	.dropdown-toggle:empty::after, .dropup .dropdown-toggle:empty::after {
+	margin-left: 0;
+	}
+	
+	.dropup .dropdown-toggle::after {
+	border-bottom-color: initial;
+	border-bottom-style: solid;
+	border-bottom-width: .3em;
+	border-left: .3em solid transparent;
+	border-right: .3em solid transparent;
+	border-top-color: initial;
+	border-top-style: initial;
+	border-top-width: 0;
+	content: "";
+	margin-left: .255em;
+	vertical-align: .255em;
+	}
+	
+	.btn-group {
+	border-radius: var(--bs-border-radius);
+	display: inline-flex;
+	position: relative;
+	vertical-align: middle;
+	}
+	
+	.btn-group>.btn {
+	flex: 1 1 auto;
+	position: relative;
+	}
+	
+	.btn-group>.btn:active, .btn-group>.btn:focus, .btn-group>.btn:hover {
+	z-index: 1;
+	}
+	
+	.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	}
+	
+	.btn-group>.btn:nth-child(n+3) {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	}
+	
+	.btn-sm {
+	border-radius: 3px;
+	font-size: 12px;
+	line-height: 1.5;
+	}
+	
+	.btn-default:hover {
+	background-color: #ebebeb;
+	border-color: #adadad;
+	color: #333;
+	}
+	
+	.btn-primary {
+	background-color: #0e71eb;
+	border-color: #0e71eb;
+	}
+	
+	.btn-primary:hover {
+	background-color: #2681f2;
+	border-color: #2681f2;
+	}
+	
+	button {
+	outline: 2px solid transparent;
+	transition: all .2s ease-in;
+	transition-behavior: normal;
+	outline-offset: 2px;
+	}
+	
+	button:focus {
+	outline: 2px solid #0e71eb;
+	outline-offset: 1px;
+	}
+	
+	#wc-container-right {
+	background-color: #fff;
+	color: #131619;
+	z-index: 20;
+	position: absolute;
+	right: -400px;
+	transition: right 0.5s ease-in-out;
+	}
+	
+	.participants-ul {
+	overflow: hidden;
+	width: 500px;
+	background: white;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 18px;
+	list-style: none;
+	margin-bottom: 0;
+	padding: 0;
+	position: relative;
+	text-align: left;
+	}
+	
+	.participants-li {
+	padding: 5px 10px 5px 8px;
+	}
+	
+	.participants-li:hover {
+	background-color: #f0f0f0;
+	}
+	
+	.participants-li .dropdown {
+	float: right;
+	}
+	
+	.window-content-bottom {
+	border-radius: 0 0 8px 8px;
+	}
+	
+	input[type=text] {
+	outline: 2px solid transparent !important;
+	outline-offset: 2px !important;
+	}
+	
+	input[type=text]:focus {
+	outline-offset: 1px !important;
+	}
+	
+	.ax-outline-blue:focus {
+	outline: 2px solid #2d8cff;
+	outline-offset: 1px;
+	}
+	
+	.ax-outline-blue-important:focus {
+	outline: 2px solid #2d8cff !important;
+	outline-offset: 1px !important;
+	}
+	
+	.button-margin-right {
+	margin-right: 5px;
+	}
+	
+	.lazy-svg-icon__icon {
+	pointer-events: none;
+	}
+	
+	.participants-icon__icon-box {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin-left: 8px;
+	}
+	
+	.participants-item__right-section--icons {
+	align-items: center;
+	display: flex;
+	flex-shrink: 0;
+	justify-content: flex-end;
+	}
+	
+	.participants-item__item-layout {
+	display: flex;
+	justify-content: space-between;
+	white-space-collapse: collapse;
+	text-wrap: nowrap;
+	height: 100%;
+	}
+	
+	.participants-item__left-section {
+	align-items: center;
+	display: flex;
+	flex: 1 1 0;
+	}
+	
+	.participants-item__name-section {
+	display: flex;
+	flex: 1 1 0;
+	width: 0;
+	}
+	
+	.participants-item__right-section {
+	align-items: center;
+	display: flex;
+	flex-shrink: 0;
+	justify-content: flex-end;
+	}
+	
+	.participants-item__right-section--buttons .btn-sm .caret {
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top-color: initial;
+	border-top-style: solid;
+	border-top-width: 4px;
+	display: inline-block;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	width: 0;
+	}
+	
+	.participants-item__avatar {
+	border: 1px solid #fff;
+	border-radius: 8px;
+	display: inline-block;
+	flex: 0 0 32px;
+	height: 32px;
+	margin-right: 12px;
+	width: 32px;
+	}
+	
+	.participants-item__display-name {
+	display: inline-block;
+	min-width: 10px;
+	overflow: hidden;
+	vertical-align: middle;
+	text-wrap: nowrap;
+	white-space-collapse: collapse;
+	text-overflow: ellipsis;
+	}
+	
+	.participants-item__name-label {
+	margin-right: 5px;
+	text-wrap: nowrap;
+	white-space-collapse: preserve;
+	vertical-align: middle;
+	}
+	
+	.participants-item__margin-right {
+	margin-right: 5px;
+	}
+	
+	.participants-li {
+	font-size: 12px;
+	height: 100%;
+	line-height: 18px;
+	list-style: none;
+	position: relative;
+	text-align: left;
+	}
+	
+	.participants-item-position {
+	padding: 1px 1px 0;
+	}
+	
+	.participants-search-box__icon {
+	background-color: initial;
+	background-image: url(https://app.zoom.us/image/wc_sprites2.png);
+	background-size: 416px 384px;
+	display: inline-block;
+	}
+	
+	.participants-search-box__fake-box {
+	align-items: center;
+	background-color: #fff;
+	border: 2px solid #aaa;
+	border-radius: 10px;
+	display: flex;
+	height: 30px;
+	justify-content: center;
+	margin: 0 8px;
+	position: relative;
+	width: 96%;
+	}
+	
+	.participants-search-box__input {
+	background-color: #fff;
+	border-style: initial;
+	border-width: 0;
+	display: inline-block;
+	flex: 1 1 0;
+	font-size: 12px;
+	height: 26px;
+	margin: 0 10px;
+	}
+	
+	.participants-search-box__input:focus {
+	outline: 0 !important;
+	}
+	
+	.participants-search-box__icon {
+	background-position: -122px -34px;
+	height: 12px;
+	transform: scale(1.16);
+	width: 12px;
+	}
+	
+	.participants-search-box__icon-wrapper {
+	align-items: center;
+	display: flex;
+	height: 16px;
+	justify-content: center;
+	margin-left: 8px;
+	width: 16px;
+	}
+	
+	.participants-list-container::-webkit-scrollbar {
+	background-color: rgba(255, 255, 255, .09);
+	border-radius: 6px;
+	width: 8px;
+	}
+	
+	.participants-list-container::-webkit-scrollbar-thumb {
+	background-color: #707070;
+	border-radius: 6px;
+	}
+	
+	.participants-list-container:focus-visible {
+	outline: 2px solid #2d8cff;
+	outline-offset: -2px;
+	}
+	
+	.participants-wrapper {
+	flex: 4 1 0;
+	height: 100%;
+	margin: 0 2px;
+	}
+	
+	.participants-wrapper__inner {
+	height: 100%;
+	}
+	
+	.participants-header__header {
+	border-top: 1px solid #eee;
+	display: flex;
+	flex-wrap: nowrap;
+	font-size: 14px;
+	font-weight: 700;
+	padding: 8px;
+	width: 100%;
+	}
+	
+	.participants-header__operate {
+	position: absolute;
+	right: 10px;
+	}
+	
+	.participants-header__operate>button:not(:last-child) {
+	margin-right: 8px;
+	}
+	
+	.reaction-count {
+	background-color: #fff;
+	border-top: 1px solid rgba(82, 82, 128, .09);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	max-height: 72px;
+	overflow: hidden;
+	padding: 8px 8px 0 24px;
+	width: 100%;
+	}
+	
+	.participant-more-options__participant-control-more .dropdown-toggle {
+	border: 1px solid rgba(0, 0, 0, .4);
+	border-radius: 2px;
+	cursor: pointer;
+	font-size: 12px;
+	position: relative;
+	}
+	
+	#particioantHostDropdown.dropdown-toggle::after {
+	display: inline-block;
+	}
+	
+	.participants-section-container {
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	}
+	
+	.participants-section-container__participants-footer-bottom {
+	background-color: #fff;
+	display: flex;
+	justify-content: space-around;
+	padding: 10px 0;
+	position: fixed;
+	bottom: 0;
+	width: 400px;
+	}
+	
+	.participants-section-container__wrapper {
+	display: flex;
+	flex: 12 1 0;
+	flex-direction: column;
+	height: 100%;
+	overflow: visible;
+	}
+	
+	.participants-section-container__buttom-button {
+	border: 1px solid rgba(0, 0, 0, .4);
+	font-size: 12px;
+	}
+	
+	.resize-triggers {
+	animation: resizeanim 1ms;
+	opacity: 0;
+	visibility: hidden;
+	animation-range-end: normal;
+	animation-range-start: normal;
+	animation-timeline: auto;
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+	}
+	
+	.contract-trigger::before, .resize-triggers, .resize-triggers>div {
+	content: " ";
+	display: block;
+	left: 0;
+	position: absolute;
+	top: 0;
+	z-index: -1;
+	}
+	
+	.resize-triggers>div {
+	background-color: #eee;
+	height: 100%;
+	overflow: auto;
+	width: 100%;
+	}
+	
+	.contract-trigger::before {
+	height: 200%;
+	overflow: hidden;
+	width: 200%;
+	}
+	
+	html {
+	font-size: 16px;
+	/* This is IMPORTANT since some copied values use "REM" units */
+	}
+	
+	
+	/* Dropdown */
+	.inherited-styles-for-exported-element {
+	color: #131619;
+	font-family: system-ui, "SF Pro", "Segoe UI", "Almaden Sans", Roboto, Ubuntu, Helvetica, Arial;
+	font-weight: 400;
+	line-height: 1.5;
+	visibility: visible;
+	}
+	
+	.zmu-paper {
+	box-sizing: border-box;
+	overflow: visible;
+	pointer-events: auto;
+	position: relative;
+	}
+	
+	.common-ui-component__dropdown-divider {
+	background-color: #747487;
+	content: "";
+	height: 1px;
+	margin: 9px auto;
+	width: 100%;
+	}
+	
+	.zmu-portal-dropdown__menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	pointer-events: all;
+	}
+	
+	.zmu-portal-dropdown__menu-item {
+	text-wrap: nowrap;
+	white-space-collapse: collapse;
+	}
+	
+	.zmu-portal-dropdown__menu-item:focus {
+	outline: 1px solid #3b99fc;
+	}
+	
+	.zmu-portal-dropdown__menu-item:hover,
+	.zmu-portal-dropdown__menu-item.hovered {
+	background-color: #e7f1fd;
+	}
+	
+	.zmu-portal-dropdown__menu-item.active {
+	background-color: #b7d6fb;
+	}
+	
+	.custom-button {
+	appearance: button;
+	border-radius: 0;
+	font-family: inherit;
+	outline: 2px solid transparent;
+	text-transform: none;
+	transition: all .2s ease-in;
+	transition-behavior: normal;
+	outline-offset: 2px;
+	}
+	
+	.custom-button:focus:not(:focus-visible) {
+	outline: 0;
+	}
+	
+	.custom-button:not(:disabled) {
+	cursor: pointer;
+	}
+	
+	.custom-button:focus {
+	outline: 2px solid #0e71eb;
+	outline-offset: 1px;
+	}
+	
+	.new-dropdown-menu {
+	background-clip: padding-box;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, .15);
+	border-radius: 4px;
+	box-shadow: rgba(0, 0, 0, .18) 0 6px 12px;
+	font-size: 14px;
+	list-style: none;
+	margin: 2px 0 0;
+	min-width: 160px;
+	padding: 5px 0;
+	z-index: 2000;
+	}
+	
+	.new-dropdown-menu .zmu-portal-dropdown__menu-item-button {
+	font-size: 12px;
+	text-decoration: none;
+	text-wrap: nowrap;
+	white-space-collapse: collapse;
+	clear: both;
+	color: #333;
+	display: block;
+	font-weight: 400;
+	line-height: 1.42857;
+	padding: 3px 20px;
+	}
+	
+	
+	/* Change name modal */
+	.inherited-styles-for-exported-element {
+	font-family: system-ui, "SF Pro", "Segoe UI", "Almaden Sans", Roboto, Ubuntu, Helvetica, Arial;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	}
+	
+	label {
+	display: inline-block;
+	font-weight: 400;
+	}
+	
+	button:focus:not(:focus-visible) {
+	outline: 0;
+	}
+	
+	button, input {
+	font-family: inherit;
+	}
+	
+	input {
+	margin: 0;
+	}
+	
+	button {
+	margin-bottom: 0;
+	margin-right: 0;
+	margin-top: 0;
+	text-transform: none;
+	}
+	
+	[type=button], button {
+	appearance: button;
+	}
+	
+	[type=button]:not(:disabled), button:not(:disabled) {
+	cursor: pointer;
+	}
+	
+	.form-control {
+	appearance: none;
+	background-clip: padding-box;
+	background-color: var(--bs-body-bg);
+	border: 1px solid #dee2e6;
+	border-image: none 100% 1 0 stretch;
+	color: var(--bs-body-color);
+	font-size: 1rem;
+	font-weight: 400;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	transition-behavior: normal, normal;
+	}
+	
+	@media (prefers-reduced-motion:reduce) {
+	.form-control {
+	transition: none 0s;
+	transition-behavior: normal;
+	}
+	}
+	
+	.form-control:focus {
+	background-color: var(--bs-body-bg);
+	border-color: #86b7fe;
+	box-shadow: rgba(13, 110, 253, .25) 0 0 0 .25rem;
+	color: var(--bs-body-color);
+	}
+	
+	.form-control::-webkit-date-and-time-value {
+	height: 1.5em;
+	margin: 0;
+	min-width: 85px;
+	}
+	
+	.form-control::-webkit-datetime-edit {
+	display: block;
+	padding: 0;
+	}
+	
+	.form-control::placeholder {
+	color: var(--bs-secondary-color);
+	opacity: 1;
+	}
+	
+	.form-control:disabled {
+	background-color: var(--bs-secondary-bg);
+	opacity: 1;
+	}
+	
+	.form-control::-webkit-file-upload-button {
+	background-color: var(--bs-tertiary-bg);
+	border: 0 solid;
+	border-color: inherit;
+	border-inline-end-width: var(--bs-border-width);
+	border-radius: 0;
+	color: var(--bs-body-color);
+	margin: -.375rem -.75rem;
+	margin-inline-end: .75rem;
+	padding: .375rem .75rem;
+	pointer-events: none;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	transition-behavior: normal, normal, normal, normal;
+	}
+	
+	.form-control::file-selector-button {
+	background-color: var(--bs-tertiary-bg);
+	border: 0 solid;
+	border-color: inherit;
+	border-inline-end-width: var(--bs-border-width);
+	border-radius: 0;
+	color: var(--bs-body-color);
+	margin: -.375rem -.75rem;
+	margin-inline-end: .75rem;
+	padding: .375rem .75rem;
+	pointer-events: none;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	transition-behavior: normal, normal, normal, normal;
+	}
+	
+	@media (prefers-reduced-motion:reduce) {
+	.form-control::-webkit-file-upload-button {
+	transition: none 0s;
+	transition-behavior: normal;
+	}
+	
+	.form-control::file-selector-button {
+	transition: none 0s;
+	transition-behavior: normal;
+	}
+	}
+	
+	.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+	background-color: var(--bs-secondary-bg);
+	}
+	
+	.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+	background-color: var(--bs-secondary-bg);
+	}
+	
+	#newname {
+	border-radius: 8px;
+	box-shadow: unset;
+	display: inline-block;
+	height: 32px;
+	line-height: 32px;
+	padding: 0 12px;
+	width: 100%;
+	}
+	
+	input[type=text] {
+	outline: 2px solid transparent !important;
+	outline-offset: 2px !important;
+	}
+	
+	input[type=text]:focus {
+	outline: 2px solid #2d8cff;
+	outline-offset: 1px !important;
+	}
+	
+	.zm-btn .loading {
+	background-color: initial;
+	background-image: url(https://app.zoom.us/image/wc_sprites.png);
+	}
+	
+	.zm-btn__outline--blue:focus {
+	outline: 2px solid #0e71eb;
+	outline-offset: 1px;
+	}
+	
+	.zm-btn {
+	background-color: #fff;
+	border: 1px solid #bababa;
+	color: #232333;
+	cursor: pointer;
+	font-size: 14px;
+	outline: 2px solid transparent;
+	transition: all .2s ease-in;
+	transition-behavior: normal;
+	box-sizing: border-box;
+	height: 32px;
+	line-height: 1;
+	outline-offset: 1px;
+	touch-action: manipulation;
+	user-select: none;
+	text-wrap: nowrap;
+	white-space-collapse: collapse;
+	position: relative;
+	}
+	
+	.zm-btn:hover {
+	background-color: #ebebeb;
+	border-color: #adadad;
+	}
+	
+	.zm-btn--primary {
+	background-color: #0e71eb;
+	border-style: none;
+	color: #fff;
+	}
+	
+	.zm-btn--primary:hover {
+	background-color: #2681f2;
+	border-color: #2681f2;
+	}
+	
+	.zm-btn--disabled {
+	cursor: not-allowed;
+	opacity: .6;
+	pointer-events: none;
+	}
+	
+	
+	.zm-btn.zm-btn-legacy {
+	border-radius: 8px;
+	padding: 6px 20px;
+	}
+	
+	.zm-modal {
+	background-color: #fff;
+	border: 1px solid rgba(186, 186, 204, .2);
+	border-radius: 12px;
+	box-shadow: rgba(35, 35, 51, .4) 0 8px 24px;
+	color: #232333;
+	padding: 32px 32px 24px;
+	position: relative;
+	width: 480px;
+	}
+	
+	.zm-modal .zm-modal-body {
+	word-break: break-word;
+	}
+	
+	.zm-modal .zm-modal-body-title {
+	font-size: 20px;
+	font-weight: 700;
+	min-height: 16px;
+	padding: 0;
+	}
+	
+	.zm-modal .zm-modal-body-content {
+	font-size: 14px;
+	max-height: 400px;
+	min-height: 38px;
+	overflow: auto;
+	padding: 8px 0 0;
+	}
+	
+	.zm-modal .zm-modal-footer {
+	padding: 26px 0 0;
+	}
+	
+	.zm-modal .zm-modal-footer-default {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+	}
+	
+	.zm-modal .zm-modal-footer-default-actions {
+	display: flex;
+	justify-self: flex-end;
+	margin-left: 30px;
+	}
+	
+	.zm-modal .zm-modal-footer-default .zm-btn {
+	margin-left: 12px;
+	}
+	
+	.zm-modal .zm-btn--primary {
+	font-weight: 700;
+	}
+	
+	.dialog-rename-container {
+	min-width: auto !important;
+	position: absolute;
+	right: 241px;
+	top: 300px;
+	z-index: 1000000;
+	}
+	
+	.dialog-rename-container__cont {
+	align-items: center;
+	display: flex;
+	}
+	
+	.dialog-rename-container__label {
+	flex: 1 0 auto;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 10px;
+	}
+	
+	/* Simulated cursor */
+	.simulated-cursor {
+	width: 20px;
+	height: 20px;
+	z-index: 1000000000000;
+	position: absolute;
+	top: 0;
+	right: 0;
+	pointer-events: none; /* Make sure the cursor doesn't block hover events */
+	transform: translate(50px, 290px);
+	transition: transform 0.8s ease-in-out;
+	}
+	
+	.simulated-cursor.active svg {
+	width: 35px;
+	height: 35px;
+	}
+	
+	/* Emoji */
+	svg {
+	vertical-align: middle;
+	}
+	
+	button:focus:not(:focus-visible) {
+	outline: 0;
+	}
+	
+	[type=button], button {
+	appearance: button;
+	}
+	
+	[type=button]:not(:disabled), button:not(:disabled) {
+	cursor: pointer;
+	}
+	
+	span {
+	display: inline-block;
+	}
+	
+	.ax-outline {
+	outline: 2px solid transparent;
+	transition: all .2s ease-in;
+	transition-behavior: normal;
+	outline-offset: 1px;
+	}
+	
+	.ax-outline:focus {
+	outline: 1px solid #fff;
+	outline-offset: -1px;
+	}
+	
+	.footer-button-base__button {
+	background-color: transparent;
+	zoom: 1.5;
+	border-radius: 8px;
+	color: #fff;
+	cursor: pointer;
+	height: 48px;
+	margin: 1px 0;
+	max-width: 160px;
+	min-width: 80px;
+	position: absolute;
+	bottom: 20px;
+	right: 275px;
+	z-index: 1000;
+	}
+	
+	.footer-button-base__button:hover {
+	background-color: rgba(255, 255, 255, .09);
+	color: rgba(255, 255, 255, .8);
+	}
+	
+	.footer-button-base__button:focus {
+	background-color: rgba(255, 255, 255, .09);
+	color: rgba(255, 255, 255, .8);
+	}
+	
+	.footer-button-base__button:active {
+	background-color: rgba(255, 255, 255, .18);
+	color: rgba(255, 255, 255, .8);
+	}
+	
+	.footer-button-base__img-layer {
+	transition: all .2s ease-in;
+	transition-behavior: normal;
+	align-items: center;
+	display: flex;
+	height: 24px;
+	justify-content: center;
+	margin-bottom: 3px;
+	position: relative;
+	}
+	
+	.footer-button-base__button-label {
+	font-size: 12px;
+	line-height: 16px;
+	overflow: hidden;
+	transition: all .2s ease-in;
+	transition-behavior: normal;
+	text-wrap: nowrap;
+	white-space-collapse: collapse;
+	margin: 0 12px;
+	max-width: 120px;
+	text-overflow: ellipsis;
+	word-break: break-all;
+	}
+	
+	.footer-button__number-counter {
+	color: rgba(255, 255, 255, .8);
+	font-size: 11px;
+	left: calc(50% + 12px);
+	position: absolute;
+	text-align: left;
+	top: 0;
+	}
+	
+	
+	</style>
+	</head>
+	<body>
+	<button id="participantsButton" type="button" class="footer-button-base__button ax-outline footer-button__button inherited-styles-for-exported-element" tabindex="0" aria-label="close the manage participants list pane" style="background: rgb(66, 67, 69);">
+	<div class="footer-button-base__img-layer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="SvgParticipants">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6.75a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm1.5-3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm6 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm1.5-3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM3 15.75a4.5 4.5 0 0 1 4.5-4.5H9c1.259 0 2.398.518 3.214 1.35a.75.75 0 1 1-1.072 1.05A2.989 2.989 0 0 0 9 12.75H7.5a3 3 0 0 0-3 3V18A1.5 1.5 0 0 0 6 19.5h3A.75.75 0 0 1 9 21H6a3 3 0 0 1-3-3v-2.25Zm11.531-1.5a4.031 4.031 0 0 0-4.031 4.031A2.719 2.719 0 0 0 13.219 21h5.062A2.719 2.719 0 0 0 21 18.281a4.031 4.031 0 0 0-4.031-4.031H14.53ZM12 18.281a2.531 2.531 0 0 1 2.531-2.531h2.438a2.531 2.531 0 0 1 2.531 2.531c0 .673-.546 1.219-1.219 1.219H13.22A1.219 1.219 0 0 1 12 18.281Z" fill="#fff"></path>
+	</svg><span class="footer-button__number-counter"><span class="participantCount">42</span></span></div><span class="footer-button-base__button-label">Participants</span>
+	</button>
+	
+	<div class="simulated-cursor" style="transform: translate(-500px, 490px);">
+	<svg width="40" height="40" viewBox="0 0 716 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path d="M490.731 740.819H333.157C235.847 740.819 175.224 627.61 173.038 623.442L63.2086 401.184C55.6293 385.848 61.9086 367.625 77.5045 359.695C86.1002 355.322 93.581 354.877 101.763 358.229C134.385 371.603 166.408 436.055 178.919 473.515L188.413 502.11L239.164 484.151V88.5452C239.164 72.252 252.416 59 268.709 59C285.002 59 298.254 72.252 298.254 88.5452V429.299H298.79H357.344H357.88V279.604C357.88 263.11 372.645 248.089 388.859 248.089C405.649 248.089 420.374 261.896 420.374 277.634V336.724V439.148H479.464V336.724C479.464 320.431 492.716 307.179 509.009 307.179C525.303 307.179 538.555 320.431 538.555 336.724V401.724V466.723H597.645V401.724C597.645 385.431 610.897 372.179 627.19 372.179C643.483 372.179 656.735 385.431 656.735 401.724V443.981H656.873L656.972 573.397C656.968 665.716 582.392 740.819 490.731 740.819Z" fill="white"></path>
+	<path d="M715.266 410.016V401.814C715.266 352.939 675.502 313.179 626.63 313.179C615.592 313.179 605.027 315.223 595.269 318.926C586.977 278.599 551.2 248.179 508.45 248.179C496.841 248.179 485.759 250.444 475.592 254.522C464.865 217.303 429.241 189.089 388.3 189.089C377.277 189.089 366.649 191.22 356.785 195.061V88.6355C356.785 39.7599 317.021 0 268.149 0C219.278 0 179.514 39.7599 179.514 88.6355V349.653C164.001 329.842 145.348 312.576 123.697 303.677C99.537 293.75 74.1124 294.935 50.1612 307.112C6.11132 329.511 -12.0491 383.492 9.67644 427.451L119.781 650.273C122.893 656.387 197.509 800 332.597 800H490.171C614.418 800 715.498 698.388 715.498 573.464L715.376 410.016H715.266ZM490.175 740.91H332.601C235.291 740.91 174.668 627.701 172.482 623.533L62.6529 401.274C55.0735 385.938 61.3529 367.715 76.9488 359.785C85.5445 355.412 93.0253 354.967 101.207 358.32C133.829 371.694 165.852 436.146 178.364 473.605L187.857 502.201L238.608 484.241V88.6355C238.608 72.3423 251.86 59.0903 268.153 59.0903C284.446 59.0903 297.698 72.3423 297.698 88.6355V429.39H298.234H356.789H357.324V279.694C357.324 263.2 372.089 248.179 388.303 248.179C405.093 248.179 419.818 261.987 419.818 277.724V336.815V439.238H478.909V336.815C478.909 320.522 492.161 307.27 508.454 307.27C524.747 307.27 537.999 320.522 537.999 336.815V401.814V466.813H597.089V401.814C597.089 385.521 610.341 372.269 626.634 372.269C642.928 372.269 656.18 385.521 656.18 401.814V444.072H656.317L656.416 573.487C656.412 665.806 581.836 740.91 490.175 740.91Z" fill="black"></path>
+	</svg>
+	</div>
+	
+	<div id="changeNameModal" class="zm-modal zm-modal-legacy dialog-rename-container inherited-styles-for-exported-element" style="display: none;">
+	<div class="zm-modal-body">
+	<div class="zm-modal-body-title">Rename:</div>
+	<div class="zm-modal-body-content">
+	<div id="nameInput" class="dialog-rename-container__cont"><label for="newname" class="dialog-rename-container__label">Name</label><input maxlength="128" type="text" id="newname" name="newname" class="form-control" required="" spellcheck="false" value="Francisco"></div>
+	</div>
+	</div>
+	<div class="zm-modal-footer">
+	<div class="zm-modal-footer-default">
+	<div class="zm-modal-footer-default-actions"><button tabindex="0" type="button" class="zm-btn zm-btn-legacy zm-btn--default zm-btn__outline--blue" aria-label="">Cancel<span class="loading" style="display: none;"></span></button><button tabindex="-1" type="button" class="zm-btn zm-btn-legacy zm-btn--primary zm-btn__outline--blue" aria-label="">Change<span class="loading" style="display: none;"></span></button></div>
+	</div>
+	</div>
+	</div>
+	
+	<div id="dropdown" class="zmu-paper new-dropdown-menu inherited-styles-for-exported-element" style="position: absolute; right: 16px; top: 110px; display: none;">
+	<menu class="zmu-portal-dropdown__menu-list" role="menu">
+	<li role="presentation" class="zmu-portal-dropdown__menu-item"><button tabindex="-1" class="zmu-portal-dropdown__menu-item-button custom-button" role="menuitem">Rename</button></li>
+	</menu>
+	</div>
+	
+	<div id="wc-container-right" style="width: 400px; visibility: visible; display: flex; flex-direction: column;" class="inherited-styles-for-exported-element">
+	<div class="participants-section-container">
+	<div role="presentation" class="participants-header__header">
+	<div class="participants-header__title" contenteditable="true"><span>Participants (<span class="participantCount">42</span>)</span></div>
+	<div class="participants-header__operate"><button aria-label="Pop Out"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/window/popout">
+	<mask id="___SVG_ID__45__0___" maskUnits="userSpaceOnUse" x="1" y="1" width="15" height="15" style="mask-type: alpha;">
+	<path d="M10 1a1 1 0 0 0 0 2h1.586L6.293 8.293a1 1 0 0 0 1.414 1.414L13 4.414V6a1 1 0 1 0 2 0V2a1 1 0 0 0-1-1h-4Z" fill="#000001"></path>
+	<path d="M3.001 5.001a2 2 0 0 1 2-2H6.5a1 1 0 0 0 0-2H5.001a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4L15 9.5a1 1 0 1 0-2 0V11a2 2 0 0 1-2 2.001H5.001a2 2 0 0 1-2-2v-6Z" fill="#000001"></path>
+	</mask>
+	<g mask="url(#___SVG_ID__45__0___)">
+	<rect width="16" height="16" fill="#6E7680"></rect>
+	</g>
+	</svg></button><button class="particpant-header__close-right" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/window/close">
+	<mask id="___SVG_ID__46__0___" maskUnits="userSpaceOnUse" x="2" y="2" width="12" height="12" style="mask-type: alpha;">
+	<path d="M3.707 2.293a1 1 0 0 0-1.414 1.414L6.586 8l-4.293 4.293a1 1 0 1 0 1.414 1.414L8 9.414l4.293 4.293a1 1 0 0 0 1.414-1.414L9.414 8l4.293-4.293a1 1 0 0 0-1.414-1.414L8 6.586 3.707 2.293Z" fill="#000001"></path>
+	</mask>
+	<g mask="url(#___SVG_ID__46__0___)">
+	<rect width="16" height="16" fill="#6E7680"></rect>
+	</g>
+	</svg></button></div>
+	</div>
+	<div class="participants-section-container__wrapper" style="flex: 12 1 0%;">
+	<div class="participants-search-box__fake-box">
+	<div class="participants-search-box__icon-wrapper"><i class="participants-search-box__icon"></i></div><input maxlength="128" type="text" class="participants-search-box__input" aria-label="Input search keyword Find a participant" placeholder="Find a participant" value="">
+	</div>
+	<div role="listbox" class="ax-outline-blue participants-wrapper">
+	<div class="participants-wrapper__inner" style="position: relative;">
+	<div style="overflow: visible; height: 0px; width: 0px;" class="">
+	<div aria-label="participants" aria-readonly="true" class="ReactVirtualized__Grid ReactVirtualized__List participants-list-container participants-ul" id="participants-ul" role="list" tabindex="0" style="box-sizing: border-box; direction: ltr; position: relative; width: 400px; left: -2px; will-change: inherit; overflow: auto;">
+	<div class="ReactVirtualized__Grid__innerScrollContainer" role="rowgroup" style="width: auto; max-width: 400px; left: -2px; height: 100vh; overflow: hidden; position: static;">
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-4" class="item-pos participants-li" tabindex="-1" aria-label="Francisco Nunez (Co-host) no audio connected video off ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div id="firstInitials" class="participants-item__avatar" aria-hidden="true" style="display: none; font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(243, 156, 18);">FN</div>
+	
+	<img class="participants-item__avatar" id="firstAvatar"
+	src="C:\Users\TG3R IMM\Pictures\wallpaper streamdeck\scene elements\MGD2.png" alt="" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px;">
+	
+	<span class="participants-item__name-section">
+	<span class="participants-item__display-name" id="firstDisplayName">Francisco Nunez</span>
+	<span class="participants-item__name-label"></span>
+	</span>
+	</div>
+	
+	<div class="participants-item__left-section">
+	</div>
+	
+	<div id="rightSection" class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box" id="firstMic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-unmuted-1">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M9.667 8V3.333a1.667 1.667 0 0 0-3.334 0V8a1.667 1.667 0 0 0 3.334 0ZM8 .667a2.667 2.667 0 0 0-2.667 2.666V8a2.667 2.667 0 0 0 5.334 0V3.333A2.667 2.667 0 0 0 8 .667Zm.5 11.973A4.667 4.667 0 0 0 12.667 8a.5.5 0 1 0-1 0 3.667 3.667 0 1 1-7.334 0 .5.5 0 1 0-1 0A4.667 4.667 0 0 0 7.5 12.64v1.693H6a.5.5 0 1 0 0 1h4a.5.5 0 0 0 0-1H8.5V12.64Z" fill="#6E6E76"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box" id="firstVideo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	<div id="rightSectionHovered" class="participants-item__right-section" style="display: none;">
+	<div class="participants-item__right-section--buttons">
+	<div data-no-focus-lock="true">
+	<div>
+	<div class="dropdown btn-group btn-group-xs btn-group-primary"><button type="button" aria-expanded="false" tabindex="0" class="btn dropdown-toggle btn btn-xs btn-primary participants-item__margin-right ax-outline-blue-important btn-sm" title="More" aria-label="More,menu button" id="dropdown-50341888-menu"><span>More</span>&nbsp;<span class="caret"></span></button></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-5" class="item-pos participants-li" tabindex="-1" aria-label="_Moses Grady computer audio unmuted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(243, 156, 18);">G</div><span class="participants-item__name-section"><span class="participants-item__display-name">Moses Grady</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-6" class="item-pos participants-li" tabindex="-1" aria-label="_Russell Carter computer audio unmuted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(41, 128, 185);">C</div><span class="participants-item__name-section"><span class="participants-item__display-name">Russell Carter</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-7" class="item-pos participants-li" tabindex="-1" aria-label="_Garrett Nikolaus computer audio unmuted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(211, 84, 0);">N</div><span class="participants-item__name-section"><span class="participants-item__display-name">Garrett Nikolaus</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-8" class="item-pos participants-li" tabindex="-1" aria-label="_Kyle Bartell computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(41, 128, 185);">B</div><span class="participants-item__name-section"><span class="participants-item__display-name">Kyle Bartell</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-9" class="item-pos participants-li" tabindex="-1" aria-label="_Ronnie Mertz computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(52, 73, 94);">M</div><span class="participants-item__name-section"><span class="participants-item__display-name">Ronnie Mertz</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-10" class="item-pos participants-li" tabindex="-1" aria-label="_Oscar Klocko computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(41, 128, 185);">K</div><span class="participants-item__name-section"><span class="participants-item__display-name">Oscar Klocko</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-11" class="item-pos participants-li" tabindex="-1" aria-label="_Arnold O'Kon computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(243, 156, 18);">O</div><span class="participants-item__name-section"><span class="participants-item__display-name">Arnold O'Kon</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-12" class="item-pos participants-li" tabindex="-1" aria-label="_Derek Dickens computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(142, 68, 173);">D</div><span class="participants-item__name-section"><span class="participants-item__display-name">Derek Dickens</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-14" class="item-pos participants-li" tabindex="-1" aria-label="_Domingo Kilback computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(243, 156, 18);">K</div><span class="participants-item__name-section"><span class="participants-item__display-name">Domingo Kilback</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-15" class="item-pos participants-li" tabindex="-1" aria-label="_Malcolm Jacobi computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(52, 73, 94);">J</div><span class="participants-item__name-section"><span class="participants-item__display-name">Malcolm Jacobi</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-17" class="item-pos participants-li " tabindex="-1" aria-label="_Leroy Kuvalis computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(22, 160, 133);">K</div><span class="participants-item__name-section"><span class="participants-item__display-name">Leroy Kuvalis</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-18" class="item-pos participants-li " tabindex="-1" aria-label="_Angelo Gorczany computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(41, 128, 185);">G</div><span class="participants-item__name-section"><span class="participants-item__display-name">Angelo Gorczany</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-19" class="item-pos participants-li " tabindex="-1" aria-label="_Roger Price computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(22, 160, 133);">P</div><span class="participants-item__name-section"><span class="participants-item__display-name">Roger Price</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-20" class="item-pos participants-li " tabindex="-1" aria-label="_Kent Reichert computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(192, 57, 43);">R</div><span class="participants-item__name-section"><span class="participants-item__display-name">Kent Reichert</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-21" class="item-pos participants-li " tabindex="-1" aria-label="_Enrique Conn computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(211, 84, 0);">C</div><span class="participants-item__name-section"><span class="participants-item__display-name">Enrique Conn</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-22" class="item-pos participants-li " tabindex="-1" aria-label="_Kristopher Parisian computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(22, 160, 133);">P</div><span class="participants-item__name-section"><span class="participants-item__display-name">Kristopher Parisian</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-23" class="item-pos participants-li " tabindex="-1" aria-label="_Francisco Gulgowski computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(142, 68, 173);">G</div><span class="participants-item__name-section"><span class="participants-item__display-name">Francisco Gulgowski</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-24" class="item-pos participants-li " tabindex="-1" aria-label="_Ronald Adams computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(243, 156, 18);">A</div><span class="participants-item__name-section"><span class="participants-item__display-name">Ronald Adams</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-25" class="item-pos participants-li " tabindex="-1" aria-label="_Joe Casper computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(142, 68, 173);">C</div><span class="participants-item__name-section"><span class="participants-item__display-name">Joe Casper</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="participants-item-position" style="">
+	<div>
+	<div role="application" id="participants-list-26" class="item-pos participants-li " tabindex="-1" aria-label="_Isaac Buckridge computer audio muted video on ">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: rgb(39, 174, 96);">B</div><span class="participants-item__name-section"><span class="participants-item__display-name">Isaac Buckridge</span><span class="participants-item__name-label"> </span></span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-muted">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path>
+	<path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path>
+	</svg></div>
+	<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/video-on">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path>
+	</svg></div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div id="zmu-portal-dropdown--participant-list"></div>
+	</div>
+	</div>
+	<div class="reaction-count"></div>
+	</div>
+	</div>
+	<script>
+	
+	document.addEventListener('DOMContentLoaded', () => {
+	// Function to load translations from a JSON file
+	async function loadTranslations() {
+	try {
+	const response = await fetch('/assets/translations.json');
+	const translations = await response.json();
+	
+	// Extract the language code from the URL hash
+	let lang = 'en'; // default language
+	const supportedLanguages = Object.keys(translations); // ['en', 'pt', 'fr', 'ru', ...]
+	
+	// Get the language code from the hash, stripping the '#' symbol
+	const hashLang = window.location.hash.substring(1);
+	if (supportedLanguages.includes(hashLang)) {
+	lang = hashLang;
+	}
+	
+	// Check if translations for the selected language exist
+	if (!translations[lang]) {
+	console.warn(`No translations found for language: ${lang}`);
+	return;
+	}
+	const languageData = translations[lang];
+	
+	// Apply translations
+	const titleElement = document.querySelector('.zm-modal-body-title');
+	if (titleElement && titleElement.innerText.trim() === 'Rename:') {
+	titleElement.innerText = languageData.rename_title || titleElement.innerText;
+	}
+	
+	const labelElement = document.querySelector('.dialog-rename-container__label');
+	if (labelElement && labelElement.innerText.trim() === 'Name') {
+	labelElement.innerText = languageData.name_label || labelElement.innerText;
+	}
+	
+	document.querySelectorAll('.zm-btn').forEach(button => {
+	if (button.innerText.trim() === 'Cancel') {
+	button.innerText = languageData.cancel_button || button.innerText;
+	}
+	if (button.innerText.trim() === 'Change') {
+	button.innerText = languageData.change_button || button.innerText;
+	}
+	});
+	
+	const participantsHeaderElement = document.querySelector('.participants-header__title');
+	if (participantsHeaderElement && participantsHeaderElement.innerText.includes('Participants')) {
+	participantsHeaderElement.innerHTML = participantsHeaderElement.innerHTML.replace('Participants', languageData.participants_title || 'Participants');
+	}
+	
+	const footerLabelElement = document.querySelector('.footer-button-base__button-label');
+	if (footerLabelElement && footerLabelElement.innerText.includes('Participants')) {
+	footerLabelElement.innerHTML = footerLabelElement.innerHTML.replace('Participants', languageData.participants_title || 'Participants');
+	}
+	
+	const moreButtonElement = document.querySelector('.dropdown .btn span');
+	if (moreButtonElement && moreButtonElement.innerText.trim() === 'More') {
+	moreButtonElement.innerText = languageData.more_button || moreButtonElement.innerText;
+	}
+	
+	document.querySelectorAll('.zmu-portal-dropdown__menu-item-button').forEach(button => {
+	if (button.innerText.trim() === 'Rename') {
+	button.innerText = languageData.rename_button || button.innerText;
+	}
+	});
+	
+	// Add translation for the placeholder in the search box input
+	const searchBoxInput = document.querySelector('.participants-search-box__input');
+	if (searchBoxInput) {
+	searchBoxInput.placeholder = languageData.find_participant || searchBoxInput.placeholder;
+	}
+	
+	} catch (error) {
+	console.error('Error loading translations:', error);
+	}
+	}
+	
+	// Run the function to load and apply translations
+	loadTranslations();
+	
+	// Optional: Re-apply translations when the hash changes
+	window.addEventListener('hashchange', loadTranslations);
+	});
+	
+	async function fetchAPIData() {
+	try {
+	const response = await fetch('http://localhost:3900/state');
+	const data = await response.json();
+	console.log('API Data:', data);
+	return data.attendeesById;
+	} catch (error) {
+	console.error('Error fetching participants:', error);
+	}
+	}
+	
+	async function populateParticipants() {
+	const rawParticipants = await fetchAPIData();
+	const participants = Object.values(rawParticipants);
+	
+	// Update the participant count
+	document.querySelectorAll('.participantCount').forEach(element => {
+	element.textContent = participants.length ? participants.length : 42;
+	});
+	
+	// Function to sort participants by host/cohost and spotlighted status
+	function sortParticipants(participants) {
+	return participants.sort((a, b) => {
+	// Prioritize spotlighted participants
+	if (a.isSpotlighted && !b.isSpotlighted) return -1;
+	if (!a.isSpotlighted && b.isSpotlighted) return 1;
+	
+	// If both are spotlighted or both are not, prioritize hosts
+	if (a.isHost && !b.isHost) return -1;
+	if (!a.isHost && b.isHost) return 1;
+	
+	// If neither are hosts or both are hosts, prioritize cohosts
+	if (a.isCoHost && !b.isCoHost) return -1;
+	if (!a.isCoHost && b.isCoHost) return 1;
+	
+	// If all conditions are equal, keep original order
+	return 0;
+	});
+	}
+	
+	const sortedParticipants = sortParticipants(participants);
+	
+	// Update the first participant in the existing HTML structure
+	function updateFirstParticipantHtml(participant) {
+	document.getElementById('firstAvatar').src = participant.avatarUrl || '';
+	document.getElementById('firstInitials').textContent = getInitials(participant.displayName);
+	document.getElementById('newname').value = participant.displayName
+	
+	if (!participant.avatarUrl) {
+	document.getElementById('firstAvatar').style.display = "none"
+	document.getElementById('firstInitials').style.display = "block"
+	}
+	
+	document.getElementById('firstDisplayName').textContent = participant.displayName;
+	
+	const micIcon = document.getElementById('firstMic');
+	micIcon.innerHTML = participant.muted
+	? `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path><path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path></svg>`
+	: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.667 8V3.333a1.667 1.667 0 0 0-3.334 0V8a1.667 1.667 0 0 0 3.334 0ZM8 .667a2.667 2.667 0 0 0-2.667 2.666V8a2.667 2.667 0 0 0 5.334 0V3.333A2.667 2.667 0 0 0 8 .667Zm.5 11.973A4.667 4.667 0 0 0 12.667 8a.5.5 0 1 0-1 0 3.667 3.667 0 1 1-7.334 0 .5.5 0 1 0-1 0A4.667 4.667 0 0 0 7.5 12.64v1.693H6a.5.5 0 1 0 0 1h4a.5.5 0 0 0 0-1H8.5V12.64Z" fill="#6E6E76"></path></svg>`;
+	
+	const videoIcon = document.getElementById('firstVideo');
+	videoIcon.innerHTML = participant.isVideoOn
+	? `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path></svg>`
+	: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.486 3.393A2.986 2.986 0 0 0 9 3H1.5A1.5 1.5 0 0 0 0 4.5V10c0 1.053.543 1.98 1.364 2.515l.73-.731A2 2 0 0 1 1 10V4.5a.5.5 0 0 1 .5-.5H9c.26 0 .51.05.738.14l.748-.747ZM11 7.121l1.485-1.485L14.8 3.9a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H5.121l1-1H10.5a.5.5 0 0 0 .5-.5V7.121ZM15 11l-3-2.25v-1.5L15 5v6Z" fill="#E02828"></path><path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path></svg>`;
+	}
+	
+	updateFirstParticipantHtml(sortedParticipants[0]);
+	
+	// Function to create and insert participant elements
+	function renderParticipants(participants) {
+	const container = document.querySelector(".ReactVirtualized__Grid__innerScrollContainer");
+	
+	// Save the first .participants-item-position
+	const firstElement = container.querySelector(".participants-item-position");
+	
+	// Clear the container's innerHTML
+	container.innerHTML = '';
+	
+	// Add the saved firstElement back to the container
+	if (firstElement) {
+	container.appendChild(firstElement);
+	}
+	
+	// Render the remaining participants, starting from the second one
+	participants.forEach(participant => {
+	const participantDiv = document.createElement("div");
+	participantDiv.className = "participants-item-position";
+	participantDiv.innerHTML = createParticipantHTML(participant);
+	container.appendChild(participantDiv);
+	});
+	}
+	
+	function createParticipantHTML(participant) {
+	const avatar = participant.avatarUrl
+	? `<img src="${participant.avatarUrl}" alt="${participant.displayName}" style="width: 32px; height: 32px; border-radius: 8px; margin-right: 12px;">`
+	: `<div class="participants-item__avatar" aria-hidden="true" style="font-size: 16px; width: 32px; height: 32px; line-height: 32px; text-align: center; color: rgb(255, 255, 255); flex: 0 0 auto; background-color: ${getRandomColor()};">${getInitials(participant.displayName)}</div>`;
+	
+	return `
+	<div>
+	<div role="application" id="participants-list-${participant.userId}" class="item-pos participants-li" tabindex="-1" aria-label="${participant.displayName}">
+	<div class="participants-item__item-layout">
+	<div class="participants-item__left-section">
+	${avatar}
+	<span class="participants-item__name-section">
+	<span class="participants-item__display-name">${participant.displayName}</span>
+	<span class="participants-item__name-label"></span>
+	</span>
+	</div>
+	<div class="participants-item__right-section">
+	<div class="participants-item__right-section--icons">
+	${participant.muted
+	? `<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m4.573 9.306-.76.76A4.648 4.648 0 0 1 3.334 8a.5.5 0 1 1 1 0c0 .46.085.9.24 1.306Zm1.76-1.76-.953.953A2.681 2.681 0 0 1 5.333 8V3.334a2.667 2.667 0 0 1 5.331-.12l-.997.998v-.878a1.667 1.667 0 1 0-3.334 0v4.212Zm-.398 4.64.76-.758A3.667 3.667 0 0 0 11.667 8a.5.5 0 0 1 .999 0A4.667 4.667 0 0 1 8.5 12.64v1.693H10a.5.5 0 1 1 0 1H6a.5.5 0 0 1 0-1h1.5V12.64a4.637 4.637 0 0 1-1.565-.454Zm1.566-1.566A2.667 2.667 0 0 0 10.666 8v-.545l-1.09 1.092a1.671 1.671 0 0 1-1.03 1.028L7.501 10.62Z" fill="#DE2828"></path><path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path></svg></div>`
+	: `<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="lazy-svg-icon__icon lazy-icon-icons/participants-list/audio-unmuted-1"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.667 8V3.333a1.667 1.667 0 0 0-3.334 0V8a1.667 1.667 0 0 0 3.334 0ZM8 .667a2.667 2.667 0 0 0-2.667 2.666V8a2.667 2.667 0 0 0 5.334 0V3.333A2.667 2.667 0 0 0 8 .667Zm.5 11.973A4.667 4.667 0 0 0 12.667 8a.5.5 0 1 0-1 0 3.667 3.667 0 1 1-7.334 0 .5.5 0 1 0-1 0A4.667 4.667 0 0 0 7.5 12.64v1.693H6a.5.5 0 1 0 0 1h4a.5.5 0 0 0 0-1H8.5V12.64Z" fill="#6E6E76"></path></svg></div>`}
+	${participant.isVideoOn
+	? `<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4H9a2 2 0 0 1 2 2v5.5a.5.5 0 0 1-.5.5H3a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 .5-.5ZM12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H3a3 3 0 0 1-3-3V4.5A1.5 1.5 0 0 1 1.5 3H9a3 3 0 0 1 3 3l2.8-2.1a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10Zm0-1.25L15 11V5l-3 2.25v1.5Z" fill="#747487"></path></svg></div>`
+	: `<div class="participants-icon__icon-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.486 3.393A2.986 2.986 0 0 0 9 3H1.5A1.5 1.5 0 0 0 0 4.5V10c0 1.053.543 1.98 1.364 2.515l.73-.731A2 2 0 0 1 1 10V4.5a.5.5 0 0 1 .5-.5H9c.26 0 .51.05.738.14l.748-.747ZM11 7.121l1.485-1.485L14.8 3.9a.75.75 0 0 1 1.2.6v7a.75.75 0 0 1-1.2.6L12 10v1.5a1.5 1.5 0 0 1-1.5 1.5H5.121l1-1H10.5a.5.5 0 0 0 .5-.5V7.121ZM15 11l-3-2.25v-1.5L15 5v6Z" fill="#E02828"></path><path d="m15.5.5-15 15" stroke="#DE2828" stroke-linecap="round"></path></svg></div>`}
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	`;
+	}
+	
+	// Function to get initials from a name
+	function getInitials(name) {
+	const nameParts = name.trim().split(" ");
+	if (nameParts.length > 1) {
+	return nameParts[0][0] + nameParts[1][0];
+	}
+	return nameParts[0][0];
+	}
+	
+	// Function to generate a random color for the avatar background
+	function getRandomColor() {
+	const colors = ["#f39c12", "#e74c3c", "#8e44ad", "#2980b9", "#27ae60", "#c0392b", "#d35400"];
+	return colors[Math.floor(Math.random() * colors.length)];
+	}
+	
+	// Render participants starting from the second one (index 1)
+	renderParticipants(sortedParticipants.slice(1));
+	}
+	
+	populateParticipants();
+	
+	const cursor = document.querySelector(".simulated-cursor");
+	cursor.style.transform = `translate(500px, 900px)`;
+	
+	
+	setTimeout(() => {
+	cursor.style.transform = `translate(-500px, 490px)`;
+	
+	setTimeout(() => {
+	document.querySelector('.simulated-cursor').classList.add('active')
+	setTimeout(() => {
+	document.querySelector('.simulated-cursor').classList.remove('active')
+	}, 200)
+	
+	}, 2600)
+	
+	setTimeout(() => {
+	document.getElementById('wc-container-right').style.right = "0"
+	
+	setTimeout(() => {
+	cursor.style.transform = `translate(40px, 90px)`;
+	}, 400)
+	
+	setTimeout(() => {
+	cursor.style.transform = `translate(-120px, 90px)`;
+	setTimeout(() => {
+	document.getElementById('rightSection').style.display = "none"
+	document.getElementById('rightSectionHovered').style.display = "block"
+	}, 700)
+	
+	document.getElementById('participantsButton').style.bottom = "-100px"
+	
+	setTimeout(() => {
+	cursor.style.transform = `translate(-40px, 90px)`;
+	
+	setTimeout(() => {
+	document.querySelector('.simulated-cursor').classList.add('active')
+	setTimeout(() => {
+	document.querySelector('.simulated-cursor').classList.remove('active')
+	}, 200)
+	}, 1200)
+	
+	setTimeout(() => {
+	document.getElementById('dropdown').style.display = "block"
+	setTimeout(() => {
+	cursor.style.transform = `translate(-80px, 120px)`;
+	}, 500)
+	
+	
+	setTimeout(() => {
+	document.getElementById('dropdown').querySelector('.zmu-portal-dropdown__menu-item').classList.add("hovered")
+	setTimeout(() => {
+	document.querySelector('.simulated-cursor').classList.add('active')
+	setTimeout(() => {
+	document.querySelector('.simulated-cursor').classList.remove('active')
+	}, 200)
+	
+	document.getElementById('dropdown').querySelector('.zmu-portal-dropdown__menu-item').classList.remove("hovered")
+	document.getElementById('dropdown').querySelector('.zmu-portal-dropdown__menu-item').classList.add("active")
+	setTimeout(() => {
+	document.getElementById('wc-container-right').style.right = "-400px"
+	cursor.style.transform = `translate(-550px, 390px)`;
+	document.getElementById('dropdown').style.display = "none"
+	document.getElementById('rightSection').style.display = "block"
+	document.getElementById('rightSectionHovered').style.display = "none"
+	
+	document.getElementById('changeNameModal').style.display = "block"
+	
+	}, 300)
+	}, 3300)
+	}, 1200)
+	}, 1500)
+	}, 2000)
+	
+	}, 400)
+	
+	}, 3000)
+	
+	}, 1000)
+	
+	
+	</script>
+	
+	
+	</body></html>
+	
+
 
